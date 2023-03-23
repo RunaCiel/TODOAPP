@@ -29,8 +29,24 @@ TODOAPP
 - Eclipse 2022-12 (4.26.0)
 - MySQL 8.0.32 MySQL Community Server - GPL
 
-## データベース
+## データベース構成
 
+このプロジェクトでは、MySQLを使用しています。以下は、データベース内のテーブル構成です。  
 データベース名：todoapp_db
 
-### userテーブル
+### todo_user
+
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| user_id | integer AUTO_INCREMENT | PRIMARY KEY |
+| user_name | varchar(10) |  |
+
+### todo
+
+| Column | Type | Options |
+| ------ | ---- | ------- |
+| task_id | integer AUTO_INCREMENT | PRIMARY KEY |
+| user_id | integer | REFERENCES todo_user(user_id) |
+| task | varchar(100) |  |
+| task_date | date |  |
+| done | boolean | DEFAULT 0 |
