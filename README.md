@@ -1,6 +1,7 @@
 # TODOAPP
 
-TODOAPP
+このプロジェクトは、Eclipseで作成された動的Webプロジェクトです。  
+GitHubからダウンロードし、Eclipseで実行することができます。
 
 ![メインページ](main.png)
 
@@ -52,3 +53,38 @@ TODOAPP
 | task | varchar(100) |  |
 | task_date | date |  |
 | done | boolean | DEFAULT 0 |
+
+## ダウンロード方法
+1. git clone コマンドか、リポジトリページからZIPファイルをダウンロードし、展開します。
+1. Eclipseを開き、ファイル -> インポートをクリックします。
+1. 一般 -> 既存プロジェクトをワークスペースへをクリックし、展開したプロジェクトを選択してから「完了」をクリックします。
+1. プロジェクトディレクトリの src/main/java/dao にある「ToDoDAO」と「UserDAO」を下記の通りに書き換えて保存します。
+
+  ~~~
+  DB_USER = "MySQLのユーザー名"
+  DB_PAS = "MySQLのパスワード"
+  ~~~
+
+5. MySQLで以下のSQL文を順番に実行し、テーブルを作成します。
+
+  ~~~
+  create database todoapp_db;
+  ~~~
+
+  ~~~
+  create table todo_user 
+  (user_id integer auto_increment, user_name varchar(10), 
+  primary key(user_id))
+  ~~~
+
+  ~~~
+  create table todo
+   (task_id integer auto_increment, user_id integer references todo_user(user_id), 
+  task varchar(100), 
+  task_date date, 
+  done boolean default 0,
+  primary key(task_id))
+  ~~~
+
+6. Tomcatサーバーを「使用言語、環境」に記載のバージョンに合わせて設定します。
+7. 「実行」を選択して実行できます。
